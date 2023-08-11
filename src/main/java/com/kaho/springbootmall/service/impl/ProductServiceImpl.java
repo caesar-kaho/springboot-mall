@@ -1,7 +1,7 @@
 package com.kaho.springbootmall.service.impl;
 
-import com.kaho.springbootmall.constant.ProductCategory;
 import com.kaho.springbootmall.dao.ProductDao;
+import com.kaho.springbootmall.dto.ProductQueryParams;
 import com.kaho.springbootmall.dto.ProductRequest;
 import com.kaho.springbootmall.model.Product;
 import com.kaho.springbootmall.service.ProductService;
@@ -17,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public List<Product> getProducts(ProductCategory category, String search) {
-        return productDao.getProducts(category, search);
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
+        return productDao.getProducts(productQueryParams);
     }
 
     @Override
