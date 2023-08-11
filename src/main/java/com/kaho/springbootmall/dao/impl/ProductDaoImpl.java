@@ -82,7 +82,7 @@ public class ProductDaoImpl implements ProductDao {
     public Integer createProduct(ProductRequest productRequest) {
         String sql = "INSERT INTO product\n" +
                 "(product_name, category, image_url, price, stock, description, created_date, last_modified_date)\n" +
-                "    VALUE (:productName, :category, :imageUrl, :price, :stock, :description, :createdDate, :lastModifiedDate)";
+                "    VALUES (:productName, :category, :imageUrl, :price, :stock, :description, :createdDate, :lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
         map.put("productName", productRequest.getProductName());
