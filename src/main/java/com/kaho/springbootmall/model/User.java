@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class User {
 
-    private Integer userid;
+    private Integer userId;
     private String email;
     @JsonIgnore
     private String password;
@@ -14,12 +14,12 @@ public class User {
     private Date createdDate;
     private Date lastModifiedDate;
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
