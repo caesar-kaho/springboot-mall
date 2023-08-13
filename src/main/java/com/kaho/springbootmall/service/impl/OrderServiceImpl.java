@@ -4,6 +4,7 @@ import com.kaho.springbootmall.dao.OrderDao;
 import com.kaho.springbootmall.dao.ProductDao;
 import com.kaho.springbootmall.dto.BuyItem;
 import com.kaho.springbootmall.dto.CreateOrderRequest;
+import com.kaho.springbootmall.model.Order;
 import com.kaho.springbootmall.model.OrderItem;
 import com.kaho.springbootmall.model.Product;
 import com.kaho.springbootmall.service.OrderService;
@@ -22,6 +23,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductDao productDao;
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        Order order = orderDao.getOrderById(orderId);
+
+        List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(orderId);
+
+        order.setOrderItemList(orderItemList);
+
+        return order;
+    }
 
     @Transactional
     @Override
