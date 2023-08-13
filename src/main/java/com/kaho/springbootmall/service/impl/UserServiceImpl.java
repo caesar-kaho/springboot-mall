@@ -1,6 +1,7 @@
 package com.kaho.springbootmall.service.impl;
 
 import com.kaho.springbootmall.dao.UserDao;
+import com.kaho.springbootmall.dto.UserLoginRequest;
 import com.kaho.springbootmall.dto.UserRegisterRequest;
 import com.kaho.springbootmall.model.User;
 import com.kaho.springbootmall.service.UserService;
@@ -36,5 +37,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        // check email is exist
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+
+        if (user == null) {
+            log.warn("email {} is not registered", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (user.getPassword().equals(userLoginRequest.getPassword())) {
+            return user;
+        } else {
+            log.warn("email {} password is not match", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 }
