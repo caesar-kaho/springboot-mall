@@ -1,6 +1,5 @@
 package com.kaho.springbootmall.rowmapper;
 
-import com.kaho.springbootmall.model.Order;
 import com.kaho.springbootmall.model.OrderItem;
 import org.springframework.jdbc.core.RowMapper;
 
