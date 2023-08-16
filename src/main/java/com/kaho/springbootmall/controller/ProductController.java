@@ -6,6 +6,10 @@ import com.kaho.springbootmall.dto.ProductRequest;
 import com.kaho.springbootmall.model.Product;
 import com.kaho.springbootmall.service.ProductService;
 import com.kaho.springbootmall.util.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +23,15 @@ import java.util.List;
 
 @Validated
 @RestController
+@Api(tags = "Product APIs")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
+    @ApiOperation("get all products")
+    @ApiResponses({
+            @ApiResponse(code=200,message="get products successfully")})
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> getProducts(
             // Filtering
@@ -63,6 +71,9 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
+    @ApiOperation("get product by ID")
+    @ApiResponses({@ApiResponse(code=200,message = "get product by Id successfully"),
+                   @ApiResponse(code=404,message = "productId is not found")})
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
 
@@ -75,6 +86,8 @@ public class ProductController {
         }
     }
 
+    @ApiOperation("create product")
+    @ApiResponses({@ApiResponse(code=201,message = "created product successfully")})
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
 
@@ -85,6 +98,9 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
+    @ApiOperation("update product")
+    @ApiResponses({@ApiResponse(code=200,message = "updated product successfully"),
+                   @ApiResponse(code=404,message = "productId is not exist")})
     @PutMapping("/products/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
                                                  @RequestBody @Valid ProductRequest productRequest) {
@@ -104,6 +120,8 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
     }
 
+    @ApiOperation("delete product")
+    @ApiResponses({@ApiResponse(code=204,message="deleted product successfully")})
     @DeleteMapping("/products/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
 
